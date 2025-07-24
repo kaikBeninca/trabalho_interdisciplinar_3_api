@@ -1,0 +1,28 @@
+.auth-buttons {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  
+  .signup {
+    background-color: #ea4c89;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+
+  .default {
+    background-color: white;
+    color: black;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+
+  a {
+  text-decoration: none;
+  color: inherit;
+}

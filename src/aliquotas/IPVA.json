@@ -1,0 +1,137 @@
+{
+  "MG": {
+    "carro": 4.0,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "RJ": {
+    "carro": 4.0,
+    "moto": 2.0,
+    "caminhao": 2.0
+  },
+  "SP": {
+    "carro": 4.0,
+    "moto": 2.0,
+    "caminhao": 1.5
+  },
+  "GO": {
+    "carro": 3.375,
+    "moto": 3.0,
+    "caminhao": 1.25
+  },
+  "PR": {
+    "carro": 3.5,
+    "moto": 3.5,
+    "caminhao": 1.0
+  },
+  "AL": {
+    "carro": 3.0,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "AP": {
+    "carro": 3.0,
+    "moto": 1.5,
+    "caminhao": 1.5
+  },
+  "AM": {
+    "carro": 3.5,
+    "moto": 3.5,
+    "caminhao": 2.0
+  },
+  "MT": {
+    "carro": 2.5,
+    "moto": 1.75,
+    "caminhao": 1.0
+  },
+  "MS": {
+    "carro": 3.0,
+    "moto": 2.0,
+    "caminhao": 1.5
+  },
+  "RN": {
+    "carro": 3.0,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "RS": {
+    "carro": 3.0,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "RO": {
+    "carro": 3.0,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "RR": {
+    "carro": 3.0,
+    "moto": 1.0,
+    "caminhao": 1.0
+  },
+  "SE": {
+    "carro": 2.75,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "BA": {
+    "carro": 2.5,
+    "moto": 2.5,
+    "caminhao": 2.5
+  },
+  "CE": {
+    "carro": 3.0,
+    "moto": 2.83,
+    "caminhao": 1.0
+  },
+  "MA": {
+    "carro": 2.5,
+    "moto": 1.5,
+    "caminhao": 1.0
+  },
+  "PA": {
+    "carro": 2.5,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "PB": {
+    "carro": 2.5,
+    "moto": 1.0,
+    "caminhao": 1.5
+  },
+  "PE": {
+    "carro": 2.4,
+    "moto": 1.5,
+    "caminhao": 1.0
+  },
+  "PI": {
+    "carro": 2.75,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "AC": {
+    "carro": 2.0,
+    "moto": 1.0,
+    "caminhao": 1.0
+  },
+  "DF": {
+    "carro": 3.5,
+    "moto": 2.0,
+    "caminhao": 1.0
+  },
+  "ES": {
+    "carro": 2.0,
+    "moto": 1.0,
+    "caminhao": 1.0
+  },
+  "SC": {
+    "carro": 2.0,
+    "moto": 0.5,
+    "caminhao": 1.0
+  },
+  "TO": {
+    "carro": 2.0,
+    "moto": 1.0,
+    "caminhao": 3.0
+  }
+}
