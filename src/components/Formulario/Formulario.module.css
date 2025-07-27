@@ -1,16 +1,14 @@
-
-
 .contForm {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     background-color: #000;
-    margin: auto;
     border-radius: 50px;
-    width: 30%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    width: 40%;
+    margin: 20px;
+    min-width: 300px;
+    min-height: 250px;
 }
 
 .campo {
@@ -18,6 +16,7 @@
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 20px;
+    min-width: 250px;
 }
 
 input {
@@ -26,20 +25,28 @@ input {
     margin-top: 3px;
     padding-left: 8px;
     border-radius: 5px;
-    background-color: #151515;
+    background-color: #252525;
 }
 
 button { 
     display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #47978f, #26cf42);
+    background-color: #168328;
+    color: white;
     border-radius: 5px;
     border: none;
     padding: 5px;
+    width: 100%;
 }
 
 label {
     display: flex;
     font-size: 15px;
     color: white;
+}
+
+form {
+    width: 80%;
 }

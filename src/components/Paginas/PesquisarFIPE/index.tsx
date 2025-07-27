@@ -6,7 +6,9 @@ export default function PesquisarFIPE(props: any) {
     return (
         <>
             <Header/>
-                <Formulario/>
+                <main>
+                    <Formulario/>
+                </main>
             <Footer/>
         </>
     )
