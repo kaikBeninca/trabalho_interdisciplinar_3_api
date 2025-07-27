@@ -1,6 +1,6 @@
 import estilo from './Header.module.css';
-import Navlinks from '../Header-navlinks/Index';
-import Headerlogin from '../Header-login/Index';
+import Navlinks from '../Header-navlinks/index';
+import Headerlogin from '../Header-login/index';
 
 export default function Header(props: any) {
     return (

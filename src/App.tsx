@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Produtos from './components/Paginas/CompararPrecos';
+import NaoEncontrada from './components/Paginas/NaoEncontrada';
+import ItemPage from './components/ItemPage/index';
+import PesquisarFIPE from './components/Paginas/PesquisarFIPE';
+import CompararPrecos from './components/Paginas/CompararPrecos';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <body>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<PesquisarFIPE/>}/>
+        <Route path="/pesquisarFipe" element={<PesquisarFIPE/>}/>
+        <Route path="/CompararPrecos" element={<CompararPrecos/>}/>
+        <Route path="/produto/:id" element={<ItemPage/>}/>
+        <Route path="/produtos" element={<Produtos/>}/>
+        <Route path="*" element={<NaoEncontrada/>}/>
+      </Routes>
+    </BrowserRouter>
+    </body>
   );
 }
 

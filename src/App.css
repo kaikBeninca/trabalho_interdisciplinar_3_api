@@ -1,38 +1,100 @@
-.App {
-  text-align: center;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main {
+  flex-grow: 4;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+}
+
+.navbar-left {
+  flex: 1;
+}
+
+.navbar .container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  color: #ea4c89;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.nav-links {
+  flex: 2;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.auth-buttons {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.login {
+  color: #555;
+  padding: 8px 16px;
+}
+
+.signup {
+  background-color: #ea4c89;
   color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
 }
 
-.App-link {
-  color: #61dafb;
+.gallery {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+.footer {
+  padding: 20px 0;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .nav-links {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .auth-buttons {
+    justify-content: center;
+    margin-top: 10px;
   }
 }
