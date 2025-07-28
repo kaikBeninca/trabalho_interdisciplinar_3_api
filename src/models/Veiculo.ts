@@ -5,7 +5,7 @@ export abstract class Veiculo implements IPesquisavel {
     private _marca: string;
     private _modelo: string;
     private _preco: string;
-    private _tipo: number;
+    private _tipo: number | string;
     private _ano: number;
     
     constructor(codigo: string, marca: string, modelo: string, preco: string, tipo: number, ano: number) {
@@ -13,8 +13,15 @@ export abstract class Veiculo implements IPesquisavel {
         this._marca = marca;
         this._modelo = modelo;
         this._preco = preco;
-        this._tipo = tipo;
         this._ano = ano;
+
+        if (tipo == 1) {
+            this._tipo = "cars";
+        } else if (tipo == 2) {
+            this._tipo = "motorcycles";
+        } else { 
+            this._tipo = "trucks";
+        }
     }
     
     public get codigo() : string {
@@ -33,7 +40,7 @@ export abstract class Veiculo implements IPesquisavel {
         return this._preco;
     }
 
-    public get tipo() : number {
+    public get tipo() : number | string {
         return this._tipo;
     }
 

@@ -1,12 +1,12 @@
 [
     {
         "goto" : "/cadastrar",
-        "descricao": "Sing In",
+        "descricao": "",
         "login": false
     },
     {
         "goto" : "/login",
-        "descricao" : "Sing Up",
-        "login" : true
+        "descricao" : "",
+        "login" : false
     }
 ]

@@ -13,7 +13,7 @@ export default function Formulario() {
     const [modelo, setModelo] = useState('');
     const [ano, setAno] = useState('');
     const [tipo, setTipoVeiculo] = useState('');
-    const [items, setItems] = useState<Item[]>([]);
+    const [items, setItems] = useState<Array<Item>>([]);
 
     const addItem = (newItem: Item) => {
         setItems([...items, newItem])

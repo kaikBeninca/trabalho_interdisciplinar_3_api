@@ -16,9 +16,10 @@ export class RepositorioVeiculo {
         this._veiculos.push(veiculo);
     }
 
-    listarTodos(veiculos: Array<Veiculo>): void{
-        veiculos.forEach(e => {
-            console.log(`${e.modelo}`);
-        })
+    pesquisarPorCriterio(criterio: string): Array<Veiculo> {
+        return this.veiculos.filter(veiculo =>
+            veiculo.marca.toLowerCase().includes(criterio.toLowerCase()) ||
+            veiculo.modelo.toLowerCase().includes(criterio.toLowerCase()) ||
+            veiculo.ano.toString().includes(criterio));
     }
 }

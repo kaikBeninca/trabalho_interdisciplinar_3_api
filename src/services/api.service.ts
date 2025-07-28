@@ -27,7 +27,7 @@ export default async function fipeRequest(endpoint: string, token = null) {
     }
 }
 
-async function buscarVeiculo(tipo: number, marcaNome: string, modeloNome: string, anoEscolhido: number | null = null) {
+async function buscarVeiculo(tipo: number | string, marcaNome: string, modeloNome: string, anoEscolhido: number | null = null) {
     try {
         // 1. Buscar marcas
         const marcas = await fipeRequest(`/${tipo}/brands`);
