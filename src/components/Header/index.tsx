@@ -8,7 +8,7 @@ export default function Header(props: any) {
             
             <div className={estilo.container}>
                 <div className={estilo.navbarleft}>
-                    <h1 className={estilo.logo}>Dribbble</h1>
+                    <img className={estilo.logo} src="/images/logo.png" alt="Logo PrecifyCar" />
                 </div>
                 <Navlinks/>
                 <Headerlogin/>
