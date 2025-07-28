@@ -15,36 +15,31 @@ export default function Formulario() {
     const [tipo, setTipoVeiculo] = useState('');
     const [items, setItems] = useState<Array<Item>>([]);
 
-    const addItem = (newItem: Item) => {
-        setItems([...items, newItem])
+    const addItem = (item: Item) => {
+        setItems([...items, item])
     }
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        addItem({ marca, modelo, ano, tipo })
+        const newItem = { marca, modelo, ano, tipo };
+
+        addItem(newItem);
     }
     return (
         <div className={estilos.contForm}>
             <form onSubmit={handleSubmit}>
                 <div className={estilos.campo}>
                     <label>Tipo do Veículo</label>
-                    <select 
-                        className={estilos.select} 
-                        name="tipoVeiculo" 
-                        id="sltTipoVeiculo"
-                        value={tipo}
-                        onChange={(e: any) => setTipoVeiculo(e.target.value)}
-                    >
-                        <option value="" selected disabled>Selecione o tipo do veículo</option>
-                        <option value="1">Carros e Caminhonetes</option>
-                        <option value="2">Motos</option>
-                        <option value="3">Caminhões</option>
-                    </select>
+                    
                 </div>
                 <div className={estilos.campo}>
                     <label>Marca</label>
-                    <input type="text" placeholder="Marca" value={marca}
-                        onChange={(e) => setMarca(e.target.value)} />
+                    <input
+                        type="text"
+                        placeholder="Marca"
+                        value={marca}
+                        onChange={(e: any) => {setMarca(e.target.value)}}
+                    />
                 </div>
                 <div className={estilos.campo}>
                     <label>Modelo</label>

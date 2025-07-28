@@ -8,7 +8,6 @@ import CompararPrecos from './components/Paginas/CompararPrecos';
 
 function App() {
   return (
-    <body>
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<PesquisarFIPE/>}/>
@@ -19,7 +18,6 @@ function App() {
         <Route path="*" element={<NaoEncontrada/>}/>
       </Routes>
     </BrowserRouter>
-    </body>
   );
 }
 
