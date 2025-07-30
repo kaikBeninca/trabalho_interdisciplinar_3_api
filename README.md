@@ -1,46 +1,83 @@
-# Getting Started with Create React App
+# 🚗 Projeto FIPE React + TypeScript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto tem como objetivo desenvolver uma aplicação web para **pesquisa, comparação e cálculo de IPVA de veículos** com base na API da **Tabela FIPE**.
 
-## Available Scripts
+A proposta surgiu como Trabalho Final Interdisciplinar das disciplinas:
 
-In the project directory, you can run:
+- **Arquitetura de Software**
+- **Desenvolvimento Front-End II**
+- **Programação Orientada a Objetos II**
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🎯 Objetivos da Aplicação
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+A aplicação foi projetada para oferecer **três funcionalidades principais**:
 
-### `npm test`
+### 🔍 Pesquisar Veículos
+Filtrar veículos pela API da FIPE com base em **tipo, marca, modelo e ano**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### ⚖️ Comparar Preços
+Exibir **lado a lado os preços de dois veículos distintos** para auxiliar na comparação de mercado.
 
-### `npm run build`
+### 🧮 Simular Financiamento e Calcular IPVA
+Calcular o valor do IPVA com base no **estado selecionado** e no **valor do veículo**, utilizando um **JSON com alíquotas estaduais**, bem como **simular um financiamento**.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Estrutura do Projeto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A arquitetura do projeto foi baseada em **Programação Orientada a Objetos**, utilizando:
 
-### `npm run eject`
+- **Classes abstratas**
+- **Herança**
+- **Polimorfismo**
+- **Princípios SOLID/GRASP**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📦 Classes principais
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- `Veiculo` (classe abstrata)
+- `Carro`, `Moto`, `Caminhao` (herdam de `Veiculo`)
+- `RepositorioVeiculo` (gerencia as instâncias)
+- `IPesquisavel` (interface para filtro de pesquisa)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## 📉 Diagrama UML
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Abaixo está o **diagrama de classes** utilizado como base para a modelagem do sistema:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+<img width="1185" height="787" alt="Captura de tela 2025-07-30 153325" src="https://github.com/user-attachments/assets/e1d7f77b-ebdf-46a1-87f3-b0ba0f576e8c" />
+
+---
+
+## ⚠️ Status do Projeto
+
+🚧 **Projeto em desenvolvimento**
+
+- Atualmente, o projeto está **incompleto** e com funcionalidades ainda em fase de construção.
+- Algumas classes estão sendo **testadas e refatoradas**.
+- A integração completa com o **React** ainda não foi finalizada.
+
+---
+
+## 🔮 Próximos Passos
+
+- Finalizar os métodos de **busca e criação de instâncias via API**
+- **Integrar o backend TypeScript ao frontend React**
+- Adicionar **tratamento de erros** e mensagens de **feedback para o usuário**
+- Implementar **layout responsivo**
+
+---
+
+## 📚 Tecnologias Utilizadas
+
+- React
+- TypeScript
+- API FIPE: [https://fipe.online/docs/api/fipe](https://fipe.online/docs/api/fipe)
+- Programação Orientada a Objetos
+
+---
