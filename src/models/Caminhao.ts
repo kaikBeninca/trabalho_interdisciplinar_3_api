@@ -18,10 +18,8 @@ export class Caminhao extends Veiculo {
         return (preco * aliquota) / 100;
     }
 
-    pesquisarPorCriterio(criterio: string, repositorio: Array<Veiculo>): Array<Veiculo> {
-        return repositorio.filter(veiculo =>
-            veiculo.marca.toLowerCase().includes(criterio.toLowerCase()) ||
-            veiculo.modelo.toLowerCase().includes(criterio.toLowerCase()) ||
-            veiculo.ano.toString().includes(criterio));
+    // ✅ Implementação específica para Caminhão
+    pesquisarPorCriterio(criterio: string): Array<Veiculo> {
+        throw new Error("Este método deve ser usado através do Repositório");
     }
 }
