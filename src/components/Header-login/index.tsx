@@ -1,16 +1,12 @@
 import estilo from "./Header-login.module.css";
-import login from '../../dados/login.json';
+import { Icon } from "@iconify/react";
 import Botao from "../Botao";
 
+
 export default function Headerlogin(){
-    let links = login;
     return (
         <div className={estilo.authbuttons}>
-            {links.map(e => {
-                return (
-                    <Botao goto={e.goto} descricao={e.descricao} login={e.login}/>
-                )
-            })}
+            <Botao goto={"/favoritos"} descricao={<Icon icon="bxs:heart" width="24" height="24" style={{color: "#168328"}} />}/>
         </div>
     )
 }

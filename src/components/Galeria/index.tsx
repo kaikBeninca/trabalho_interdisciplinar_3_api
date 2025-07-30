@@ -2,7 +2,6 @@ import estilo from './Galeria.module.css';
 import Card from '../Card/index';
 import cards from '../../dados/cards.json';
 
-
 export default function Galeria() {
 
     return(

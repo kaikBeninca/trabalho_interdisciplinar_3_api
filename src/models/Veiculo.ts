@@ -7,13 +7,15 @@ export abstract class Veiculo implements IPesquisavel {
     private _preco: string;
     private _tipo: number | string;
     private _ano: number;
+    private _combustivel: string;
     
-    constructor(codigo: string, marca: string, modelo: string, preco: string, tipo: number, ano: number) {
+    constructor(codigo: string, marca: string, modelo: string, preco: string, tipo: number, ano: number, combustivel: string) {
         this._codigo = codigo;
         this._marca = marca;
         this._modelo = modelo;
         this._preco = preco;
         this._ano = ano;
+        this._combustivel = combustivel.toLowerCase();
 
         if (tipo == 1) {
             this._tipo = "cars";
@@ -46,7 +48,11 @@ export abstract class Veiculo implements IPesquisavel {
 
     public get ano() : number {
         return this._ano;
-    }    
+    }  
+    
+    public get combustivel() : string {
+        return this._combustivel;
+    } 
 
     public set codigo(novoCodigo) {
         this._codigo = novoCodigo;
@@ -62,6 +68,10 @@ export abstract class Veiculo implements IPesquisavel {
 
     public set preco(novoPreco) {
         this._preco = novoPreco;
+    }
+
+    public set combustivel(novoCombustivel) {
+        this._preco = novoCombustivel;
     }
 
     abstract calcularIPVA(aliquota: number): number;

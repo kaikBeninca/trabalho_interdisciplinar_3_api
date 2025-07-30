@@ -1,5 +1,11 @@
 import { useState } from "react";
 import estilos from "./Formulario.module.css";
+import ListagemItens from "../ListagemItens";
+import { instancias, vetVeiculos } from '../../controller/controller';
+
+Promise.all(instancias).then(() => {
+  vetVeiculos.listar();
+});
 
 type Item = {
     marca: string;
@@ -8,11 +14,11 @@ type Item = {
     tipo: string;
 }
 
-export default function Formulario() {
+export default function Formulario(props: any) {
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
     const [ano, setAno] = useState('');
-    const [tipo, setTipoVeiculo] = useState('');
+    const [tipo, setTipoVeiculo] = useState('default');
     const [items, setItems] = useState<Array<Item>>([]);
 
     const addItem = (item: Item) => {
@@ -30,7 +36,18 @@ export default function Formulario() {
             <form onSubmit={handleSubmit}>
                 <div className={estilos.campo}>
                     <label>Tipo do Veículo</label>
-                    
+                    <select 
+                        className={estilos.select} 
+                        name="tipoVeiculo" 
+                        id="sltTipoVeiculo"
+                        value={tipo}
+                        onChange={(e: any) => setTipoVeiculo(e.target.value)}
+                    >
+                        <option value="default" disabled>Selecione o tipo do veículo</option>
+                        <option value="cars">Carros e Caminhonetes</option>
+                        <option value="motorcycles">Motos</option>
+                        <option value="trucks">Caminhões</option>
+                    </select>
                 </div>
                 <div className={estilos.campo}>
                     <label>Marca</label>
@@ -50,6 +67,7 @@ export default function Formulario() {
                     <input type="text" placeholder="Ano" value={ano} onChange={(e) => setAno(e.target.value)} />
                 </div>
                 <button type="submit">Pesquisar</button>
+                <ListagemItens items={items} />
             </form>
         </div>
     );

@@ -1,0 +1,43 @@
+
+.carrousel ul {
+    background-color: #000;
+    border: 1px solid #5e5e5e;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.carrousel ul li {
+    display: flex;
+    flex-direction: row;
+    background-color: #FFFFFF;
+    padding: 15px;
+    border: 1px solid #5e5e5e;
+    display: block;
+}
+
+.carrousel ul li img {
+    max-width: 150px;
+    background-color: #13315C;
+}
+
+.carrousel ul li a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.carrousel ul li h1 {
+    font-size: 18px;    
+    margin: 0;
+}
+
+.carrousel ul li p {
+    color: #13315C;
+    font-style: italic;
+}
