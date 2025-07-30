@@ -1,6 +1,6 @@
-import { IPesquisavel } from "../interfaces/IPesquisavel";
+import { IPesquisavel } from "../interfaces/Pesquisavel";
 
-export abstract class Veiculo implements IPesquisavel<Veiculo> {
+export abstract class Veiculo implements IPesquisavel {
     private _codigo: string;
     private _marca: string;
     private _modelo: string;
@@ -76,11 +76,5 @@ export abstract class Veiculo implements IPesquisavel<Veiculo> {
 
     abstract calcularIPVA(aliquota: number): number;
 
-    // ✅ Implementação da interface IPesquisavel
-    abstract pesquisarPorCriterio(criterio: string): Array<Veiculo>;
-    
-    // ✅ Método para obter ID único (necessário para CRUD)
-    public getId(): string {
-        return this._codigo;
-    }
+    abstract pesquisarPorCriterio(criterio: string, repositorio: Array<any>): Array<Veiculo>;
 }

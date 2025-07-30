@@ -16,10 +16,10 @@ export class Carro extends Veiculo {
         return (preco * aliquota) / 100;
     }
 
-    // ✅ Implementação específica para Carro (pode ter lógica diferente)
-    pesquisarPorCriterio(criterio: string): Array<Veiculo> {
-        // Para Carro, pesquisa em marca e modelo apenas
-        // Esta implementação seria usada em contextos específicos
-        throw new Error("Este método deve ser usado através do Repositório");
+    pesquisarPorCriterio(criterio: string, repositorio: Array<Veiculo>): Array<Veiculo> {
+        return repositorio.filter(veiculo =>
+            veiculo.marca.toLowerCase().includes(criterio.toLowerCase()) ||
+            veiculo.modelo.toLowerCase().includes(criterio.toLowerCase()) ||
+            veiculo.ano.toString().includes(criterio));
     }
 }

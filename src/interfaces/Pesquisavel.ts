@@ -1,5 +1,5 @@
-// ⚠️ ARQUIVO DEPRECATED - Use IPesquisavel.ts
-// Este arquivo será removido
+import { Veiculo } from "../models/Veiculo";
+
 export interface IPesquisavel {
-    pesquisarPorCriterio(criterio: string, respositorio: Array<any>): Array<any>;
+    pesquisarPorCriterio(criterio: string, respositorio: Array<any>): Array<Veiculo>;
 }
