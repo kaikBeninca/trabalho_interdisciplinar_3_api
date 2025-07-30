@@ -16,6 +16,21 @@ export class RepositorioVeiculo {
         this._veiculos.push(veiculo);
     }
 
+    public listar(): Array<string> {
+    const listaVeiculos = this._veiculos.map((veiculo: any): string => {
+        return `{
+    "codigoFipe": "${veiculo.codigo}";
+    "marca": "${veiculo.marca}";
+    "modelo": "${veiculo.modelo}";
+    "preco": "${veiculo.preco}";
+    "tipo: "${veiculo.tipo}";
+    "ano": ${veiculo.ano};
+    "combustivel: "${veiculo.combustivel}";
+}`
+    })
+    return listaVeiculos;
+}
+
     public pesquisarPorCriterio(tipo: string, marca: string, modelo: string, ano: string): Veiculo[] {
     return this.veiculos.filter((v: any) => {
         return (
@@ -27,5 +42,3 @@ export class RepositorioVeiculo {
     });
 }
 }
-
-export const repositorioVeiculo = new RepositorioVeiculo();

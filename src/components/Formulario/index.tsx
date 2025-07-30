@@ -1,11 +1,5 @@
 import { useState } from "react";
 import estilos from "./Formulario.module.css";
-import ListagemItens from "../ListagemItens";
-import { instancias, vetVeiculos } from '../../controller/controller';
-
-Promise.all(instancias).then(() => {
-  vetVeiculos.listar();
-});
 
 type Item = {
     marca: string;
@@ -14,7 +8,7 @@ type Item = {
     tipo: string;
 }
 
-export default function Formulario(props: any) {
+export default function Formulario() {
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
     const [ano, setAno] = useState('');
@@ -25,12 +19,13 @@ export default function Formulario(props: any) {
         setItems([...items, item])
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         const newItem = { marca, modelo, ano, tipo };
 
         addItem(newItem);
     }
+
     return (
         <div className={estilos.contForm}>
             <form onSubmit={handleSubmit}>
@@ -67,7 +62,6 @@ export default function Formulario(props: any) {
                     <input type="text" placeholder="Ano" value={ano} onChange={(e) => setAno(e.target.value)} />
                 </div>
                 <button type="submit">Pesquisar</button>
-                <ListagemItens items={items} />
             </form>
         </div>
     );
