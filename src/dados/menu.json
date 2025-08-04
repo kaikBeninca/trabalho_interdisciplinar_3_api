@@ -1,17 +1,17 @@
 [
     {
         "goto" : "/",
+        "descricao" : "Home",
+        "login" : false
+    },
+    {
+        "goto" : "/pesquisarFipe",
         "descricao" : "Pesquisar Fipe",
         "login" : false
     },
     {
         "goto" : "/compararPrecos",
         "descricao" : "Comparar Preços",
-        "login" : false
-    },
-    {
-        "goto" : "/simularFinanciamento",
-        "descricao" : "Simular Financiamento",
         "login" : false
     }
 ]

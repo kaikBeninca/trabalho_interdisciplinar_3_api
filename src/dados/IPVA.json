@@ -1,33 +1,27 @@
 {
   "MG": {
     "carro": 4.0,
-    "moto": 2.0,
-    "caminhao": 1.0
+    "moto": 2.0
   },
   "RJ": {
     "carro": 4.0,
-    "moto": 2.0,
-    "caminhao": 2.0
+    "moto": 2.0
   },
   "SP": {
     "carro": 4.0,
-    "moto": 2.0,
-    "caminhao": 1.5
+    "moto": 2.0
   },
   "GO": {
     "carro": 3.375,
-    "moto": 3.0,
-    "caminhao": 1.25
+    "moto": 3.0
   },
   "PR": {
     "carro": 3.5,
-    "moto": 3.5,
-    "caminhao": 1.0
+    "moto": 3.5
   },
   "AL": {
     "carro": 3.0,
-    "moto": 2.0,
-    "caminhao": 1.0
+    "moto": 2.0
   },
   "AP": {
     "carro": 3.0,

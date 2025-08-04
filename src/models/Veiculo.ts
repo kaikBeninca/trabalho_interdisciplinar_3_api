@@ -24,10 +24,8 @@ export abstract class Veiculo implements IPesquisavel {
 
         if (tipo == 1) {
             this._tipo = "cars";
-        } else if (tipo == 2) {
+        } else {
             this._tipo = "motorcycles";
-        } else { 
-            this._tipo = "trucks";
         }
     }
     
