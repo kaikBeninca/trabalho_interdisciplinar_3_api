@@ -1,3 +1,4 @@
+import { instancias, vetVeiculos } from "../../../controller/controller";
 import { RepositorioVeiculo } from "../../../models/RepositorioVeiculo";
 import Footer from "../../Footer/index";
 import Formulario from "../../Formulario";
