@@ -1,8 +1,12 @@
+import { useEffect } from 'react';
 import Footer from '../../Footer/index';
 import Header from '../../Header/index';
 import estilos from './NaoEncontrada.module.css';
 
 export default function NaoEncontrada() {
+    useEffect(() => {
+            document.title = 'PrecifyCar';
+        }, []);
     return(
         <>
             <Header/>

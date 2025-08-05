@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import Footer from "../../Footer";
 import Header from "../../Header";
 import estilos from "./Sobre.module.css";
 
 export default function Sobre() {
+    useEffect(() => {
+            document.title = 'PrecifyCar';
+    }, []);
     return (
         <>
             <Header />

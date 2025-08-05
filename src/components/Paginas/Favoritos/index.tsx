@@ -15,6 +15,7 @@ export default function Favorito() {
 
     // Carrega os favoritos inicialmente
     useEffect(() => {
+        document.title = 'PrecifyCar';
         setFavoritos(RepositorioGeral.favoritos);
         setFavoritosFiltrados(RepositorioGeral.favoritos);
     }, []);
