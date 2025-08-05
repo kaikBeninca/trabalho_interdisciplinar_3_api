@@ -3,13 +3,13 @@ import estilo from './Header-navlinks.module.css';
 import menu from '../../dados/menu.json';
 import { useLocation } from 'react-router-dom';
 
-export default function Navlinks(){
+export default function Navlinks() {
     const localizacao = useLocation();
 
-    return(
+    return (
         <div className={estilo.navlinks}>
-            {menu.map(e => {
-                    return(<Botao goto={e.goto} descricao={e.descricao} login={localizacao.pathname === e.goto ? true : (false || e.login)}/>)
+            {menu.map((e, i) => {
+                return (<Botao key={i} goto={e.goto} descricao={e.descricao} login={localizacao.pathname === e.goto ? true : (false || e.login)} />)
             })}
         </div>
     )

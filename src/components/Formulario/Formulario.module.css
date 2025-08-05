@@ -1,9 +1,9 @@
 .contForm {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #000;
+    background-color: #fff;
     border-radius: 50px;
     width: 40%;
     margin: 20px;
@@ -20,9 +20,9 @@
 }
 
 .select {
-    background-color: #252525;
+    background-color: #bbb;
     border: none;
-    color: #656565;
+    color: #333;
     padding: 2px;
     border-radius: 5px;
     margin-top: 3px;
@@ -32,7 +32,7 @@ select option {
     all: unset;
 }
 
-input {
+.inputForm {
     display: flex;
     border: none;
     margin-top: 3px;
@@ -40,8 +40,8 @@ input {
     padding-top: 2px;
     padding-bottom: 2px;
     border-radius: 5px;
-    background-color: #252525;
-    color: white;
+    background-color: #bbb;
+    color: black;
 }
 
 button { 
@@ -57,10 +57,18 @@ button {
     width: 100%;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
+button::after {
+    cursor: wait;
+}
+
 label {
     display: flex;
     font-size: 15px;
-    color: white;
+    color: black;
 }
 
 form {

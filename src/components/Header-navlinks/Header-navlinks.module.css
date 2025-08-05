@@ -1,7 +1,7 @@
 .navlinks {
     flex: 2;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     gap: 15px;
 }

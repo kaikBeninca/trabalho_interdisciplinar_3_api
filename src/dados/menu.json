@@ -8,10 +8,5 @@
         "goto" : "/pesquisarFipe",
         "descricao" : "Pesquisar Fipe",
         "login" : false
-    },
-    {
-        "goto" : "/compararPrecos",
-        "descricao" : "Comparar Preços",
-        "login" : false
     }
 ]

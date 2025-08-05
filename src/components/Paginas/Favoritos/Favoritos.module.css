@@ -1,0 +1,53 @@
+.container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: #ffffff;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 50%;
+    height: auto;
+    min-height: 80%;
+}
+
+.itens {
+    flex-direction: row;
+}
+
+.inputFav {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
+}
+
+.inputFav:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    outline: none;
+}
+
+/* Se quiser estilizar a listagem */
+.listagem {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+
+    input[type="text"] {
+        font-size: 0.95rem;
+        padding: 0.6rem 0.9rem;
+    }
+}

@@ -77,7 +77,7 @@ export abstract class Veiculo implements IPesquisavel {
         this._preco = novoCombustivel;
     }
 
-    abstract calcularIPVA(veiculo: Veiculo, aliquota: number): number;
+    abstract calcularIPVA(aliquota: { carro: string } | { moto: string }): string;
 
     abstract pesquisarPorCriterio(criterio: string, vetor: Array<any>): Array<Veiculo>;
 }

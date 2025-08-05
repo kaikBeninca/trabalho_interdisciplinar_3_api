@@ -5,15 +5,30 @@ export class Carro extends Veiculo {
         super(codigo, marca, modelo, preco, tipoVeiculo, ano, combustivel)
     }
 
-    calcularIPVA(veiculo: Veiculo, aliquota: number): number {
-        const preco: number = parseFloat(veiculo.preco.replace(/[R$\s.]/g, '').replace(',', '.'));
+    calcularIPVA(aliquota: { carro: string }): string {
+        // Converte o preço para número (tratando formato brasileiro)
+        const precoNumerico: number = parseFloat(
+            this.preco.replace(/[R$\s.]/g, '').replace(',', '.')
+        );
+
         const anoAtual = new Date().getFullYear();
 
-        if (anoAtual - veiculo.ano >= 20 || veiculo.combustivel == 'elétrico') {
-            return 0; // isento
+        // Verifica isenções
+        if (anoAtual - this.ano >= 20 || this.combustivel === 'elétrico') {
+            return '0,00'; // Retorna como string formatada
         }
 
-        return (preco * aliquota) / 100;
+        // Converte a alíquota de string para número
+        const aliquotaNumerica = parseFloat(aliquota.carro.replace('.', '').replace(',', '.'));
+
+        // Calcula o valor do IPVA
+        const valorIPVA = (precoNumerico * aliquotaNumerica) / 1000;
+
+        // Formata o resultado para o padrão brasileiro
+        return valorIPVA.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
     pesquisarPorCriterio(criterio: string, vetor: Array<Veiculo>): Array<Veiculo> {

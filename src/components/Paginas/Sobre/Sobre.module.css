@@ -1,0 +1,54 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.texto {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin: auto;
+    border-radius: 50px;
+    width: 85%;
+}
+
+.texto p {
+    margin: -10px 20px 20px 20px;
+    color: #000;
+    font-size: 17px;
+}
+
+h2 {
+    margin: 20px 0;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #168328;
+}
+
+.itensInternos {
+    margin-left: 40px;
+    list-style-type: circle;
+}
+
+h3 {
+    font-size: 20px;
+    display: flex;
+    justify-content: start;
+    margin: 0 0 20px 20px;
+    color: #168328;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: -20px 0 20px 60px;
+    color: #000;
+}
+
+.listaSemPrevia {
+    margin-top: -10px;
+}

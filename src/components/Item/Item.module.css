@@ -1,0 +1,23 @@
+.lista {
+  padding: 1rem;
+  margin: 1rem auto;
+  border: solid 3px #168328;
+  background-color: #fff;
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 20vw;
+}
+
+.lista div {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #168328;
+  padding: 0.5rem 0;
+}
+
+.lista div:last-child {
+  border-bottom: none;
+}

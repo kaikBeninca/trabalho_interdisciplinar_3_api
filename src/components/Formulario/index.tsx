@@ -2,99 +2,234 @@ import { useEffect, useState } from "react";
 import estilos from "./Formulario.module.css";
 import { construindoMarcas, construindoModelos, construindoVeiculos } from "../../controller/controller";
 import { RepositorioGeral } from "../../models/RepositorioGeral";
+import { Marca } from "../../models/Marca";
+import { Modelo } from "../../models/Modelo";
+import { Versao } from "../../models/Versao";
+import SelectModelos from "../SelectModelos";
+import SelectVersoes from "../SelectVersoes";
+import Item from "../Item";
+import { Veiculo } from "../../models/Veiculo";
+import estadosAliquota from '../../dados/IPVA.json';
 
-type Item = {
-    marca: string;
-    modelo: string;
-    ano: string;
-    tipo: string;
-    combustivel: string;
-}
+type VeiculoTipo = 'default' | 'cars' | 'motorcycles';
 
 export default function Formulario() {
-    const [marca, setMarca] = useState('');
-    const [modelo, setModelo] = useState('');
-    const [ano, setAno] = useState('');
-    const [tipo, setTipoVeiculo] = useState('default');
-    const [combustivel, setCombustivel] = useState('default');
-    const [items, setItems] = useState<Array<Item>>([]);
+  // Estados do formulário
+  const [tipo, setTipoVeiculo] = useState<VeiculoTipo>('default');
+  const [marca, setMarca] = useState('');
+  const [marcasFiltradas, setMarcasFiltradas] = useState<Marca[]>([]);
+  const [modelo, setModelo] = useState('');
+  const [modelosFiltrados, setModelosFiltrados] = useState<Modelo[]>([]);
+  const [versao, setVersao] = useState('');
+  const [versoesFiltradas, setVersoesFiltradas] = useState<Versao[]>([]);
+  const [ano, setAno] = useState('');
+  const [combustivel, setCombustivel] = useState('default');
+  const [carregando, setCarregando] = useState(false);
+  const [veiculo, setVeiculo] = useState<Veiculo | undefined>(undefined);
+  const [estado, setEstado] = useState('default');
 
-    useEffect(() => {
-        construindoMarcas();
-        construindoModelos();
-    }, []);
+  // Carrega dados iniciais
+  useEffect(() => {
+    const carregarDados = async () => {
+      setCarregando(true);
+      try {
+        await construindoMarcas();
+        await construindoModelos();
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+      } finally {
+        setCarregando(false);
+      }
+    };
 
-    const addItem = (item: Item) => {
-        setItems([...items, item])
+    carregarDados();
+  }, []);
+
+  // Filtra marcas quando o tipo muda
+  useEffect(() => {
+    if (tipo === 'default') {
+      setMarcasFiltradas([]);
+      return;
     }
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
-    const tipoCombustivel = parseInt(combustivel);
-    const anoConvertido = parseInt(ano);
-
-    // Adiciona no array de items do React (se quiser exibir depois)
-    const newItem = { marca, modelo, ano, tipo, combustivel };
-    addItem(newItem);
-
-    // Chama a função TypeScript que constrói o objeto e adiciona no repositório
-    await construindoVeiculos(tipo, marca, modelo, anoConvertido, tipoCombustivel);
-    console.log(`Veículo adicionado: Marca ${marca} Modelo ${modelo}, Ano: ${ano}, Tipo: ${tipo}, Combustível: ${combustivel}`);
-    
-    }
-
-    return (
-        <div className={estilos.contForm}>
-            <form onSubmit={handleSubmit}>
-                <div className={estilos.campo}>
-                    <label>Tipo do Veículo</label>
-                    <select 
-                        className={estilos.select} 
-                        name="tipoVeiculo" 
-                        id="sltTipoVeiculo"
-                        value={tipo}
-                        onChange={(e: any) => setTipoVeiculo(e.target.value)}
-                    >
-                        <option value="default" disabled>Selecione o tipo do veículo</option>
-                        <option value="cars">Carros e Caminhonetes</option>
-                        <option value="motorcycles">Motos</option>
-                    </select>
-                </div>
-                <div className={estilos.campo}>
-                    <label>Marca</label>
-                    <input
-                        type="text"
-                        placeholder="Marca"
-                        value={marca}
-                        onChange={(e: any) => {setMarca(e.target.value)}}
-                    />
-                </div>
-                <div className={estilos.campo}>
-                    <label>Modelo</label>
-                    <input type="text" placeholder="Modelo" value={modelo} onChange={(e) => setModelo(e.target.value)} />
-                </div>
-                <div className={estilos.campo}>
-                    <label>Ano</label>
-                    <input type="text" placeholder="Ano" value={ano} onChange={(e) => setAno(e.target.value)} />
-                </div>
-                <div className={estilos.campo}>
-                    <label>Combustível</label>
-                    <select 
-                        className={estilos.select} 
-                        name="combustivel" 
-                        id="sltCombustivel"
-                        value={combustivel}
-                        onChange={(e: any) => setCombustivel(e.target.value)}
-                    >
-                        <option value="default" disabled>Selecione o tipo do combustível</option>
-                        <option value="1">Gasolina</option>
-                        <option value="2">Álcool</option>
-                        <option value="3">Diesel</option>
-                    </select>
-                </div>
-                <button type="submit">Pesquisar</button>
-            </form>
-        </div>
+    const marcasDoTipo = RepositorioGeral.marcas.filter(marca =>
+      tipo === 'cars'
+        ? ['31', '41', '43'].includes(marca.codigo)
+        : ['77', '91', '192'].includes(marca.codigo)
     );
+
+    setMarcasFiltradas(marcasDoTipo);
+    setMarca('');
+  }, [tipo]);
+
+  useEffect(() => {
+    if (!marca) {
+      setModelosFiltrados([]);
+      setModelo('');
+      return;
+    }
+
+    const marcaSelecionada = marcasFiltradas.find(m => m.nome === marca);
+    if (marcaSelecionada) {
+      setModelosFiltrados(marcaSelecionada.modelos);
+    }
+  }, [marca, marcasFiltradas]);
+
+  // Filtra versões quando o modelo muda
+  useEffect(() => {
+    if (!modelo) {
+      setVersoesFiltradas([]);
+      setVersao('');
+      return;
+    }
+
+    const modeloSelecionado = modelosFiltrados.find(m => m.nome === modelo);
+    if (modeloSelecionado) {
+      setVersoesFiltradas(modeloSelecionado.versoes);
+    }
+  }, [modelo, modelosFiltrados]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCarregando(true);
+
+    try {
+      const versaoSelecionada = versoesFiltradas.find(v => v.nome === versao);
+      var veiculo: Veiculo | undefined;
+      if (versaoSelecionada) {
+        veiculo = await construindoVeiculos(
+          tipo,
+          marcasFiltradas.find(m => m.nome === marca)?.codigo || '',
+          versaoSelecionada.codigo.toString(),
+          ano,
+          combustivel
+        );
+        setVeiculo(veiculo);
+      }
+    } catch (error) {
+      console.error("Erro ao pesquisar veículo:", error);
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  return (
+    <div className={estilos.contForm}>
+      <form onSubmit={handleSubmit}>
+        <div className={estilos.campo}>
+          <label>Tipo do Veículo</label>
+          <select
+            className={estilos.select}
+            value={tipo}
+            onChange={(e) => setTipoVeiculo(e.target.value as VeiculoTipo)}
+            disabled={carregando}
+          >
+            <option value="default" disabled>Selecione o tipo</option>
+            <option value="cars">Carros</option>
+            <option value="motorcycles">Motos</option>
+          </select>
+        </div>
+        <div className={estilos.campo}>
+          <label>Marca</label>
+          <select
+            className={estilos.select}
+            value={marca}
+            onChange={(e) => setMarca(e.target.value)}
+            disabled={!tipo || carregando}
+          >
+            <option value="" disabled>Selecione a marca</option>
+            {marcasFiltradas.map((marca) => (
+              <option key={marca.codigo} value={marca.nome}>
+                {marca.nome}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={estilos.campo}>
+          <label>Modelo</label>
+          <select
+            className={estilos.select}
+            value={modelo}
+            onChange={(e) => setModelo(e.target.value)}
+            disabled={!marca || carregando}
+          >
+            <option value="" disabled>Selecione o modelo</option>
+            <SelectModelos modelos={modelosFiltrados} />
+          </select>
+        </div>
+        <div className={estilos.campo}>
+          <label>Versão</label>
+          <select
+            className={estilos.select}
+            value={versao}
+            onChange={(e) => setVersao(e.target.value)}
+            disabled={!modelo || carregando}
+          >
+            <option value="" disabled>Selecione a versão</option>
+            <SelectVersoes versoes={versoesFiltradas} />
+          </select>
+        </div>
+        <div className={estilos.campo}>
+          <label>Ano</label>
+          <input
+            type="text"
+            placeholder="Ano"
+            value={ano}
+            className={estilos.inputForm}
+            onChange={(e) => setAno(e.target.value)}
+            disabled={!versao || carregando}
+          />
+        </div>
+        <div className={estilos.campo}>
+          <label>Combustível</label>
+          <select
+            className={estilos.select}
+            value={combustivel}
+            onChange={(e) => setCombustivel(e.target.value)}
+            disabled={!ano || carregando}
+          >
+            <option value="default" disabled>Selecione</option>
+            <option value="1">Gasolina</option>
+            <option value="2">Álcool</option>
+            <option value="3">Diesel</option>
+          </select>
+        </div>
+        <div className={estilos.campo}>
+          <label>Seu Estado</label>
+          <select
+            className={estilos.select}
+            id={estado}
+            value={estado}
+            onChange={(e) => {
+              const novoEstado = e.target.value;
+              setEstado(novoEstado);
+              localStorage.setItem('estadoSelecionado', novoEstado);
+            }}
+            disabled={!ano || carregando}
+          >
+            <option value="default" disabled>Selecione</option>
+            {Object.keys(estadosAliquota).map((estado: string) => (
+              <option key={estado} value={estado} id={estado}>{estado}</option>
+            ))}
+          </select>
+        </div>
+        <button type="submit" disabled={!combustivel || carregando} className={carregando ? estilos.carregando : ''}>
+          {carregando ? 'Pesquisando...' : 'Pesquisar'}
+        </button>
+      </form>
+      <div className={estilos.veiculoRenderizado}>
+        {veiculo && (
+          <div>
+            <Item codigo={veiculo.codigo} marca={veiculo.marca} modelo={veiculo.modelo} preco={veiculo.preco} tipo={veiculo.tipo} ano={veiculo.ano} combustivel={veiculo.combustivel} IPVA={
+              estado !== "default" ? veiculo.calcularIPVA({
+                carro: estadosAliquota[estado as keyof typeof estadosAliquota].carro,
+                moto: estadosAliquota[estado as keyof typeof estadosAliquota].moto
+              }) : 0
+            } />
+            <button type="button" disabled={!combustivel || carregando} className={carregando ? estilos.carregando : ''} onClick={() => RepositorioGeral.adicionarFavorito(veiculo)}>{carregando ? 'Adicionando...' : 'Adicionar aos Favoritos'}</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

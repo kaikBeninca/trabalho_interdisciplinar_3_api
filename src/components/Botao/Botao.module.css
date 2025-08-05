@@ -6,11 +6,13 @@
   }
   
   .signup {
-    background-color: #168328;
-    color: white;
+    background-color: #fff;
+    border: solid 2px #168328;
+    color: black;
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
+    cursor: pointer;
   }
 
   .default {
@@ -19,10 +21,7 @@
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
-    color: white;
+    color: black;
+    cursor: pointer;
   }
 
-  a {
-  text-decoration: none;
-  color: inherit;
-}

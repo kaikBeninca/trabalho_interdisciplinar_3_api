@@ -30,9 +30,8 @@ html, body {
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #333;
+  background-color: rgb(22, 131, 40, 0.6);
   background-size: cover;
-  color: #333;
 }
 
 #root {

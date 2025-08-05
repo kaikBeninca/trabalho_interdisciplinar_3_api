@@ -1,26 +1,35 @@
 import Item from '../Item';
 import estilos from './ListagemItens.module.css';
 
-function ListagemItens(props: any) {
+interface ListagemItensProps {
+    vetor: any[];
+    estado: string;
+    estadosAliquota: Record<string, { carro: string; moto: string }>;
+}
+
+function ListagemItens({ vetor, estado, estadosAliquota }: ListagemItensProps) {
     return (
-        <>
-            <h1>Resultado da Busca:</h1>
-            <div className={estilos.carrousel}>
-                <ul>
-                    {props.items.map((elemento: any) => (
-                        <Item
-                            codigo={elemento.codigo}
-                            marca={elemento.marca}
-                            modelo={elemento.modelo}
-                            preco={elemento.preco}
-                            tipo={elemento.tipo}
-                            ano={elemento.ano}
-                            combustivel={elemento.combustivel}
-                        />
-                    ))}
-                </ul>
-            </div>
-        </>
+        <div className={estilos.carrosel}>
+            {vetor.map((elemento: any) => (
+                <Item
+                    key={elemento.codigo}
+                    codigo={elemento.codigo}
+                    marca={elemento.marca}
+                    modelo={elemento.modelo}
+                    preco={elemento.preco}
+                    tipo={elemento.tipo}
+                    ano={elemento.ano}
+                    combustivel={elemento.combustivel}
+                    IPVA={
+                        estado !== "default" && estadosAliquota[estado]
+                            ? elemento.tipo === 'cars'
+                                ? elemento.calcularIPVA({ carro: estadosAliquota[estado].carro })
+                                : elemento.calcularIPVA({ moto: estadosAliquota[estado].moto })
+                            : '0,00'
+                    }
+                />
+            ))}
+        </div>
     );
 }
 

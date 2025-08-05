@@ -26,7 +26,7 @@ export default async function fipeRequest(endpoint: string): Promise<any> { // R
 
         const resposta = await response.json();
         return resposta;
-        
+
     } catch (error) {
         console.error('Erro na requisição:', error);
         throw error;
@@ -73,56 +73,36 @@ export async function buscarVeiculo(tipo: string | number, marcaNome?: string, m
     }
 }
 
-export async function compararVeiculos(veiculos: Array<Veiculo>) {
-    const resultados = [];
+export async function construindoMarcas(): Promise<void> {
+    // Definimos os códigos específicos para cada tipo
+    const marcasParaBuscar = [
+        { tipo: 'cars', codigos: ['31', '41', '43'] },
+        { tipo: 'motorcycles', codigos: ['77', '91', '192'] }
+    ];
 
-    for (const veiculo of veiculos) {
-        try {
-            const dados = await buscarVeiculo(
-                veiculo.tipo,
-                veiculo.marca,
-                veiculo.modelo,
-                veiculo.ano
+    try {
+        // Para cada grupo (carros e motos)
+        for (const grupo of marcasParaBuscar) {
+            // Busca TODAS as marcas desse tipo
+            const todasMarcas = await fipeRequest(`/${grupo.tipo}/brands`);
+
+            // Filtra apenas as marcas com os códigos que precisamos
+            const marcasFiltradas = todasMarcas.filter((marca: any) =>
+                grupo.codigos.includes(marca.code)
             );
 
-            resultados.push({
-                nome: `${veiculo.marca} ${veiculo.modelo} ${veiculo.ano}`,
-                preco: dados.price,
-                precoNumerico: parseFloat(dados.price.replace(/[R$\s.]/g, '').replace(',', '.'))
+            // Adiciona ao repositório
+            marcasFiltradas.forEach((marca: any) => {
+                const instanciaMarca = new Marca(marca.code, marca.name);
+                if (!RepositorioGeral.marcas.some(m => m.codigo === instanciaMarca.codigo)) {
+                    RepositorioGeral.adicionarMarca(instanciaMarca);
+                }
             });
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Erro ao buscar ${veiculo.marca} ${veiculo.modelo}:`, error.message);
-            }
         }
+    } catch (error) {
+        console.error('Erro ao carregar marcas:', error);
+        throw new Error('Falha ao carregar marcas da FIPE');
     }
-
-    resultados.sort((a, b) => a.precoNumerico - b.precoNumerico);
-
-    console.log('🏆 COMPARAÇÃO DE PREÇOS:');
-    resultados.forEach((resultado, index) => {
-        console.log(`${index + 1}º ${resultado.nome}: ${resultado.preco}`);
-    });
-
-    return resultados;
-}
-
-export async function construindoMarcas(): Promise<void> {
-    const marcasCarro = await fipeRequest(`/cars/brands`);
-    const marcasMoto = await fipeRequest(`/motorcycles/brands`);
-
-    marcasCarro.forEach((marca: any) => {
-        const instanciaMarca = new Marca(marca.code, marca.name);
-        if (!RepositorioGeral.marcas.some(m => m.codigo === instanciaMarca.codigo)) {
-            RepositorioGeral.adicionarMarca(instanciaMarca);
-        }
-    });
-    marcasMoto.forEach((marca: any) => {
-        const instanciaMarca = new Marca(marca.code, marca.name);
-        if (!RepositorioGeral.marcas.some(m => m.codigo === instanciaMarca.codigo)) {
-            RepositorioGeral.adicionarMarca(instanciaMarca);
-        }
-    });
 }
 
 export async function construindoModelos(): Promise<void> {
@@ -131,36 +111,45 @@ export async function construindoModelos(): Promise<void> {
             try {
                 let modelosCarros = [];
                 let modelosMotos = [];
-                
+
                 // Primeiro tenta como carro
                 try {
                     modelosCarros = await fipeRequest(`/cars/brands/${marca.codigo}/models`);
                 } catch (carError) {
                     console.log(`Marca ${marca.nome} não é de carros (código ${marca.codigo})`);
                 }
-                
-                // Depois tenta como moto
+
+                //Depois tenta como moto
                 try {
                     modelosMotos = await fipeRequest(`/motorcycles/brands/${marca.codigo}/models`);
                 } catch (motoError) {
                     console.log(`Marca ${marca.nome} não é de motos (código ${marca.codigo})`);
                 }
-                
+
                 // Combina os resultados
                 const todosModelos = [...modelosCarros, ...modelosMotos];
                 let vetTemporario: Array<Versao> = [];
 
                 todosModelos.forEach((modelo: any) => {
+                    // Pega o primeiro nome do modelo (ex: "Fox" em "Fox 1.6 MSI 8v 5p")
                     const modeloGeral = modelo.name.split(' ')[0];
-                    const instanciaModelo = new Modelo(modeloGeral);
-                    
-                    if (!RepositorioGeral.modelos.some(m => m.nome === instanciaModelo.nome)) {
+
+                    // Verifica se já existe algum modelo com esse nome geral
+                    const modeloJaExiste = RepositorioGeral.modelos.some(m =>
+                        m.nome.split(' ')[0] === modeloGeral
+                    );
+
+                    if (!modeloJaExiste) {
+                        const instanciaModelo = new Modelo(modeloGeral);
                         RepositorioGeral.adicionarModelo(instanciaModelo);
-                        marca.adiconarModelo(modeloGeral);
+                        marca.adiconarModelo(instanciaModelo);
                     }
 
+                    // Adiciona a versão específica (independente de ser novo modelo ou não)
                     const versao = new Versao(modelo.code, modelo.name);
                     vetTemporario.push(versao);
+
+
                 });
 
                 // Associa versões aos modelos
@@ -172,12 +161,6 @@ export async function construindoModelos(): Promise<void> {
                     });
                 });
 
-                // RepositorioGeral.modelos.forEach((modelo: Modelo) => {
-                //     modelo.versoes.forEach((versao: Versao) => {
-                //         console.log(`Modelo: ${modelo.nome}, Versão: ${versao.nome}`);
-                        
-                //     });
-                // });
 
             } catch (error) {
                 console.error(`Erro ao processar marca ${marca.nome}:`, error);
@@ -188,28 +171,41 @@ export async function construindoModelos(): Promise<void> {
     }
 }
 
-    export async function construindoVeiculos(tipoVeiculo: string, marca: string, modelo: string, ano: number, tipoCombustivel: number) {
-        try {
-            const veiculo = await fipeRequest(`/${tipoVeiculo}/brands/${marca}/models/${modelo}/years/${ano}-${tipoCombustivel}`);
-            if (tipoVeiculo == 'cars') {
-                var novoVeiculo = new Carro(veiculo.codeFipe, veiculo.brand, veiculo.model, veiculo.price, veiculo.vehicleType, veiculo.modelYear, veiculo.fuel);
-            } else {
-                var novoVeiculo = new Moto(veiculo.codeFipe, veiculo.brand, veiculo.model, veiculo.price, veiculo.vehicleType, veiculo.modelYear, veiculo.fuel);
-            }
-            
-            let veiculoVerificado = RepositorioGeral.veiculos.some((e: Veiculo) => e.codigo === novoVeiculo.codigo);
+export async function construindoVeiculos(tipoVeiculo: string, marca: string, modelo: string, ano: string, tipoCombustivel: string) {
+    try {
+        const veiculo = await fipeRequest(`/${tipoVeiculo}/brands/${marca}/models/${modelo}/years/${ano}-${tipoCombustivel}`);
+        let novoVeiculo: Veiculo; // Use o tipo base
 
-            if (!veiculoVerificado) {
-                RepositorioGeral.adicionarVeiculo(novoVeiculo);
-            }        
+        if (tipoVeiculo == 'cars') {
+            novoVeiculo = new Carro(veiculo.codeFipe, veiculo.brand, veiculo.model, veiculo.price, veiculo.vehicleType, veiculo.modelYear, veiculo.fuel);
+        } else {
+            novoVeiculo = new Moto(veiculo.codeFipe, veiculo.brand, veiculo.model, veiculo.price, veiculo.vehicleType, veiculo.modelYear, veiculo.fuel);
+        }
 
-        } catch (error: any) {
-            console.error(`❌ Erro ao buscar/adicionar veículo:
+        let veiculoVerificado = RepositorioGeral.veiculos.some((e: Veiculo) => e.codigo === novoVeiculo.codigo);
+
+        if (!veiculoVerificado) {
+            RepositorioGeral.adicionarVeiculo(novoVeiculo);
+        }
+
+        return novoVeiculo;
+
+    } catch (error: any) {
+        console.error(`❌ Erro ao buscar/adicionar veículo:
     - Tipo: ${tipoVeiculo}
     - Marca: ${marca}
     - Modelo: ${modelo}
     - Ano: ${ano}
     - Detalhes: ${error?.message || error}
             `);
-        };
     }
+}
+
+export function filtrarModelosPorMarcas(marca: string): Marca[] {
+    const termoBusca = marca.toLowerCase();
+
+    return RepositorioGeral.marcas.filter((objMarca: Marca) =>
+        objMarca.nome.toLowerCase().includes(termoBusca)
+
+    );
+}

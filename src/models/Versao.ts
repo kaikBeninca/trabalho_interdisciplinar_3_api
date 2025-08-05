@@ -7,7 +7,7 @@ export class Versao {
         this._nome = nome;
     }
 
-    public get id() : string {
+    public get codigo() : string {
         return this._codigo;
     }
 
@@ -15,7 +15,7 @@ export class Versao {
         return this._nome;
     }
 
-    public set id(novoId: string) {
+    public set codigo(novoId: string) {
         this._codigo = novoId;
     }
     

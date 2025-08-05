@@ -6,6 +6,7 @@ export class RepositorioGeral {
     private static _veiculos: Array<Veiculo> = [];
     private static _marcas: Array<Marca> = [];
     private static _modelos: Array<Modelo> = [];
+    private static _favoritos: Array<Veiculo> = [];
 
     constructor() {
     }
@@ -25,6 +26,11 @@ export class RepositorioGeral {
         return cloneModelos;
     }
 
+    static get favoritos(): Array<Veiculo> {
+        const cloneFavoritos = [... RepositorioGeral._favoritos];
+        return cloneFavoritos;
+    }
+
     public static adicionarVeiculo(veiculo: Veiculo): void {
         this._veiculos.push(veiculo);
     }
@@ -37,14 +43,14 @@ export class RepositorioGeral {
         this._modelos.push(modelo);
     }
 
-    // public pesquisarPorCriterio(tipo: string, marca: string, modelo: string, ano: string): Veiculo[] {
-    // return this.veiculos.filter((v: any) => {
-    //     return (
-    //         v.tipo.toLowerCase().includes(tipo.toLowerCase()) &&
-    //         v.marca.toLowerCase().includes(marca.toLowerCase()) &&
-    //         v.modelo.toLowerCase().includes(modelo.toLowerCase()) &&
-    //         v.ano.toString().includes(ano)
-    //     );
-    // });
-    // }
+    public static adicionarFavorito(veiculo: Veiculo): void {
+        this._favoritos.push(veiculo);
+    }
+
+    pesquisarPorCriterio(criterio: string, vetor: Array<Veiculo>): Array<Veiculo> {
+        return vetor.filter(veiculo =>
+            veiculo.marca.toLowerCase().includes(criterio.toLowerCase()) ||
+            veiculo.modelo.toLowerCase().includes(criterio.toLowerCase()) ||
+            veiculo.ano.toString().includes(criterio));
+    }
 }

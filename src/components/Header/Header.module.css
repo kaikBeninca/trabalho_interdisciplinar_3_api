@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #000;
+    background-color: #fff;
     padding: 20px 0;
 }
 
@@ -23,7 +23,6 @@
     width: 90%;
     max-width: 1200px;
     margin: auto;
-    
 }
 
 .nav-links {
