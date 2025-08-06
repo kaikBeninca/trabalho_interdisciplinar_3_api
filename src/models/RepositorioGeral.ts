@@ -12,22 +12,22 @@ export class RepositorioGeral {
     }
 
     static get veiculos(): Array<Veiculo> {
-        const cloneVeiculos = [... RepositorioGeral._veiculos];
+        const cloneVeiculos = [...RepositorioGeral._veiculos];
         return cloneVeiculos;
     }
 
     static get marcas(): Array<Marca> {
-        const cloneMarcas = [... RepositorioGeral._marcas];
+        const cloneMarcas = [...RepositorioGeral._marcas];
         return cloneMarcas;
     }
 
     static get modelos(): Array<Modelo> {
-        const cloneModelos = [... RepositorioGeral._modelos];
+        const cloneModelos = [...RepositorioGeral._modelos];
         return cloneModelos;
     }
 
     static get favoritos(): Array<Veiculo> {
-        const cloneFavoritos = [... RepositorioGeral._favoritos];
+        const cloneFavoritos = [...RepositorioGeral._favoritos];
         return cloneFavoritos;
     }
 
@@ -47,10 +47,15 @@ export class RepositorioGeral {
         this._favoritos.push(veiculo);
     }
 
-    pesquisarPorCriterio(criterio: string, vetor: Array<Veiculo>): Array<Veiculo> {
-        return vetor.filter(veiculo =>
-            veiculo.marca.toLowerCase().includes(criterio.toLowerCase()) ||
-            veiculo.modelo.toLowerCase().includes(criterio.toLowerCase()) ||
-            veiculo.ano.toString().includes(criterio));
+    public static removerFavorito(veiculo: Veiculo): void {
+        const indice = this.favoritos.findIndex((objVeiculo: Veiculo) => veiculo.codigo === objVeiculo.codigo);
+
+        if (indice !== -1) {
+            this.favoritos.splice(indice, 1);
+        }
+    }
+
+    static estaNosFavoritos(codigo: string): boolean {
+        return this.favoritos.some(v => v.codigo === codigo);
     }
 }

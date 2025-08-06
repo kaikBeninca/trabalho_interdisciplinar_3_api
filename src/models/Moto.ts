@@ -5,7 +5,7 @@ export class Moto extends Veiculo {
         super(codigo, marca, modelo, preco, tipoVeiculo, ano, combustivel)
     }
 
-    calcularIPVA(aliquota: { moto: string }): string {
+    calcularIPVA(aliquota: { moto: number }): string {
         // Converte o preço para número (tratando formato brasileiro)
         const precoNumerico: number = parseFloat(
             this.preco.replace(/[R$\s.]/g, '').replace(',', '.')
@@ -18,22 +18,13 @@ export class Moto extends Veiculo {
             return '0,00'; // Retorna como string formatada
         }
 
-        // Converte a alíquota de string para número
-        const aliquotaNumerica = parseFloat(aliquota.moto.replace('.', '').replace(',', '.'));
-
         // Calcula o valor do IPVA
-        const valorIPVA = (precoNumerico * aliquotaNumerica) / 1000;
+        const valorIPVA = (precoNumerico * aliquota.moto) / 100;
 
         // Formata o resultado para o padrão brasileiro
         return valorIPVA.toLocaleString('pt-BR', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
-    }
-
-    pesquisarPorCriterio(criterio: string, vetor: Array<Veiculo>): Array<Veiculo> {
-        return vetor.filter(veiculo =>
-            veiculo.marca.toLowerCase().includes(criterio.toLowerCase()) ||
-            veiculo.modelo.toLowerCase().includes(criterio.toLowerCase()));
     }
 }

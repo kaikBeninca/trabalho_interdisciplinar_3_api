@@ -16,24 +16,12 @@ export default function Favorito() {
     // Carrega os favoritos inicialmente
     useEffect(() => {
         document.title = 'PrecifyCar';
-        setFavoritos(RepositorioGeral.favoritos);
-        setFavoritosFiltrados(RepositorioGeral.favoritos);
+        const favoritosAtuais = RepositorioGeral.favoritos;
+        setFavoritos(favoritosAtuais);
+        setFavoritosFiltrados(favoritosAtuais);
     }, []);
 
-    // Filtra os favoritos quando o termo de busca muda
-    useEffect(() => {
-        if (termoBusca.trim() === '') {
-            setFavoritosFiltrados(favoritos);
-        } else {
-            const resultado = favoritos.filter(veiculo =>
-                veiculo.marca.toLowerCase().includes(termoBusca.toLowerCase()) ||
-                veiculo.modelo.toLowerCase().includes(termoBusca.toLowerCase()) ||
-                veiculo.ano.toString().includes(termoBusca)
-            );
-            setFavoritosFiltrados(resultado);
-        }
-    }, [termoBusca, favoritos]);
-
+    // Carrega o estado selecionado salvo
     useEffect(() => {
         const estadoSalvo = localStorage.getItem('estadoSelecionado');
         if (estadoSalvo) {
@@ -41,13 +29,31 @@ export default function Favorito() {
         }
     }, []);
 
+    // Filtra automaticamente conforme o usuário digita
+    useEffect(() => {
+        if (termoBusca.trim() === '') {
+            setFavoritosFiltrados(favoritos);
+        } else {
+            const resultados = favoritos.flatMap((veiculo: Veiculo) =>
+                veiculo.pesquisarPorCriterio(termoBusca, [veiculo])
+            );
+            setFavoritosFiltrados(resultados);
+        }
+    }, [termoBusca, favoritos]);
+
     return (
         <>
             <Header />
             <main>
                 <div className={estilos.container}>
                     <div>
-                        <input type="text" placeholder="Buscar por marca, modelo ou ano..." className={estilos.inputFav} value={termoBusca} onChange={(e) => setTermoBusca(e.target.value)} />
+                        <input
+                            type="text"
+                            placeholder="Buscar por marca, modelo ou tipo..."
+                            className={estilos.inputFav}
+                            value={termoBusca}
+                            onChange={(e) => setTermoBusca(e.target.value)}
+                        />
 
                         <div className={estilos.itens}>
                             <ListagemItens
@@ -62,4 +68,4 @@ export default function Favorito() {
             <Footer />
         </>
     );
-};
+}

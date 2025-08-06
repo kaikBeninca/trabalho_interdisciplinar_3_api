@@ -33,51 +33,17 @@ export default async function fipeRequest(endpoint: string): Promise<any> { // R
     }
 }
 
-export async function buscarVeiculo(tipo: string | number): Promise<any>;
-export async function buscarVeiculo(tipo: string | number, marcaNome: string): Promise<any>;
-export async function buscarVeiculo(tipo: string | number, marcaNome: string, modeloNome: string): Promise<any>;
-export async function buscarVeiculo(tipo: string | number, marcaNome: string, modeloNome: string, anoEscolhido: number): Promise<any>;
-
-export async function buscarVeiculo(tipo: string | number, marcaNome?: string, modeloNome?: string, anoEscolhido?: number | null): Promise<any> {
-    try {
-        // 1. Buscar marcas
-        const marcas = await fipeRequest(`/${tipo}/brands`);
-        const marca = marcaNome ? marcas.find((m: any) => m.name.toLowerCase().includes(marcaNome.toLowerCase())) : marcas[0];
-
-        if (!marca) throw new Error(`Marca "${marcaNome}" não encontrada`);
-
-        // 2. Buscar modelos
-        const modelos = await fipeRequest(`/${tipo}/brands/${marca.code}/models`);
-        const listaModelos = modelos.models || modelos;
-        const modelo = modeloNome ? listaModelos.find((m: any) => m.name.toLowerCase().includes(modeloNome.toLowerCase())) : listaModelos[0];
-
-        if (!modelo) throw new Error(`Modelo "${modeloNome}" não encontrado`);
-
-        // 3. Buscar anos
-        const anos = await fipeRequest(`/${tipo}/brands/${marca.code}/models/${modelo.code}/years`);
-        const anoSelecionado = anoEscolhido ? anos.find((a: any) => a.name.includes(anoEscolhido.toString())) || anos[0] : anos[0];
-
-        if (!anoSelecionado) throw new Error(`Ano "${anoEscolhido}" não encontrado`);
-
-        // 4. Obter detalhes
-        const detalhes = await fipeRequest(
-            `/${tipo}/brands/${marca.code}/models/${modelo.code}/years/${anoSelecionado.code}`
-        );
-
-        return detalhes;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error("Erro:", error.message);
-            throw error;
-        }
-    }
-}
-
 export async function construindoMarcas(): Promise<void> {
-    // Definimos os códigos específicos para cada tipo
+    // Defino os códigos específicos para cada tipo
     const marcasParaBuscar = [
-        { tipo: 'cars', codigos: ['31', '41', '43'] },
-        { tipo: 'motorcycles', codigos: ['77', '91', '192'] }
+        {
+            tipo: 'cars',
+            codigos: ['31', '41', '43']
+        },
+        {
+            tipo: 'motorcycles',
+            codigos: ['77', '91', '192']
+        }
     ];
 
     try {
@@ -101,7 +67,6 @@ export async function construindoMarcas(): Promise<void> {
         }
     } catch (error) {
         console.error('Erro ao carregar marcas:', error);
-        throw new Error('Falha ao carregar marcas da FIPE');
     }
 }
 
@@ -139,13 +104,14 @@ export async function construindoModelos(): Promise<void> {
                         m.nome.split(' ')[0] === modeloGeral
                     );
 
+                    // Se não existir, instancia Modelo e adiciona tanto no repositório geral quanto no vetor de modelo dentro de Marca
                     if (!modeloJaExiste) {
                         const instanciaModelo = new Modelo(modeloGeral);
                         RepositorioGeral.adicionarModelo(instanciaModelo);
                         marca.adiconarModelo(instanciaModelo);
                     }
 
-                    // Adiciona a versão específica (independente de ser novo modelo ou não)
+                    // Adiciona a versão específica
                     const versao = new Versao(modelo.code, modelo.name);
                     vetTemporario.push(versao);
 
@@ -176,13 +142,15 @@ export async function construindoVeiculos(tipoVeiculo: string, marca: string, mo
         const veiculo = await fipeRequest(`/${tipoVeiculo}/brands/${marca}/models/${modelo}/years/${ano}-${tipoCombustivel}`);
         let novoVeiculo: Veiculo; // Use o tipo base
 
+        // Verifica o tipo retornado para instanciar ou Carro ou Moto
         if (tipoVeiculo == 'cars') {
             novoVeiculo = new Carro(veiculo.codeFipe, veiculo.brand, veiculo.model, veiculo.price, veiculo.vehicleType, veiculo.modelYear, veiculo.fuel);
         } else {
             novoVeiculo = new Moto(veiculo.codeFipe, veiculo.brand, veiculo.model, veiculo.price, veiculo.vehicleType, veiculo.modelYear, veiculo.fuel);
         }
 
-        let veiculoVerificado = RepositorioGeral.veiculos.some((e: Veiculo) => e.codigo === novoVeiculo.codigo);
+        // Verifica se já existe um Veiculo com código do novoVeiculo para não ter duplicação
+        const veiculoVerificado = RepositorioGeral.veiculos.some((e: Veiculo) => e.codigo === novoVeiculo.codigo);
 
         if (!veiculoVerificado) {
             RepositorioGeral.adicionarVeiculo(novoVeiculo);
@@ -199,13 +167,4 @@ export async function construindoVeiculos(tipoVeiculo: string, marca: string, mo
     - Detalhes: ${error?.message || error}
             `);
     }
-}
-
-export function filtrarModelosPorMarcas(marca: string): Marca[] {
-    const termoBusca = marca.toLowerCase();
-
-    return RepositorioGeral.marcas.filter((objMarca: Marca) =>
-        objMarca.nome.toLowerCase().includes(termoBusca)
-
-    );
 }

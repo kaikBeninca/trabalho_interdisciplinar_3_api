@@ -1,110 +1,110 @@
 {
   "AC": {
-    "carro": "2.0",
-    "moto": "1.0"
+    "carro": 2.0,
+    "moto": 1.0
   },
   "AL": {
-    "carro": "3.0",
-    "moto": "2.0"
+    "carro": 3.0,
+    "moto": 2.0
   },
   "AM": {
-    "carro": "3.5",
-    "moto": "3.5"
+    "carro": 3.5,
+    "moto": 3.5
   },
   "AP": {
-    "carro": "3.0",
-    "moto": "1.5"
+    "carro": 3.0,
+    "moto": 1.5
   },
   "BA": {
-    "carro": "2.5",
-    "moto": "2.5"
+    "carro": 2.5,
+    "moto": 2.5
   },
   "CE": {
-    "carro": "3.0",
-    "moto": "2.83"
+    "carro": 3.0,
+    "moto": 2.83
   },
   "DF": {
-    "carro": "3.5",
-    "moto": "2.0"
+    "carro": 3.5,
+    "moto": 2.0
   },
   "ES": {
-    "carro": "2.0",
-    "moto": "1.0"
+    "carro": 2.0,
+    "moto": 1.0
   },
   "GO": {
-    "carro": "3.375",
-    "moto": "3.0"
+    "carro": 3.375,
+    "moto": 3.0
   },
   "MA": {
-    "carro": "2.5",
-    "moto": "1.5"
+    "carro": 2.5,
+    "moto": 1.5
   },
   "MG": {
-    "carro": "4.0",
-    "moto": "2.0"
+    "carro": 4.0,
+    "moto": 2.0
   },
   "MS": {
-    "carro": "3.0",
-    "moto": "2.0"
+    "carro": 3.0,
+    "moto": 2.0
   },
   "MT": {
-    "carro": "2.5",
-    "moto": "1.75"
+    "carro": 2.5,
+    "moto": 1.75
   },
   "PA": {
-    "carro": "2.5",
-    "moto": "2.0"
+    "carro": 2.5,
+    "moto": 2.0
   },
   "PB": {
-    "carro": "2.5",
-    "moto": "1.0"
+    "carro": 2.5,
+    "moto": 1.0
   },
   "PE": {
-    "carro": "2.4",
-    "moto": "1.5"
+    "carro": 2.4,
+    "moto": 1.5
   },
   "PI": {
-    "carro": "2.75",
-    "moto": "2.0"
+    "carro": 2.75,
+    "moto": 2.0
   },
   "PR": {
-    "carro": "3.5",
-    "moto": "3.5"
+    "carro": 3.5,
+    "moto": 3.5
   },
   "RJ": {
-    "carro": "4.0",
-    "moto": "2.0"
+    "carro": 4.0,
+    "moto": 2.0
   },
   "RN": {
-    "carro": "3.0",
-    "moto": "2.0"
+    "carro": 3.0,
+    "moto": 2.0
   },
   "RO": {
-    "carro": "3.0",
-    "moto": "2.0"
+    "carro": 3.0,
+    "moto": 2.0
   },
   "RR": {
-    "carro": "3.0",
-    "moto": "1.0"
+    "carro": 3.0,
+    "moto": 1.0
   },
   "RS": {
-    "carro": "3.0",
-    "moto": "2.0"
+    "carro": 3.0,
+    "moto": 2.0
   },
   "SC": {
-    "carro": "2.0",
-    "moto": "0.5"
+    "carro": 2.0,
+    "moto": 0.5
   },
   "SE": {
-    "carro": "2.75",
-    "moto": "2.0"
+    "carro": 2.75,
+    "moto": 2.0
   },
   "SP": {
-    "carro": "4.0",
-    "moto": "2.0"
+    "carro": 4.0,
+    "moto": 2.0
   },
   "TO": {
-    "carro": "2.0",
-    "moto": "1.0"
+    "carro": 2.0,
+    "moto": 1.0
   }
 }

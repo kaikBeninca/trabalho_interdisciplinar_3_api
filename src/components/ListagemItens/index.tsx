@@ -4,7 +4,7 @@ import estilos from './ListagemItens.module.css';
 interface ListagemItensProps {
     vetor: any[];
     estado: string;
-    estadosAliquota: Record<string, { carro: string; moto: string }>;
+    estadosAliquota: Record<string, { carro: number; moto: number }>;
 }
 
 function ListagemItens({ vetor, estado, estadosAliquota }: ListagemItensProps) {

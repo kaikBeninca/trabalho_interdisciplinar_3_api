@@ -16,17 +16,17 @@ type VeiculoTipo = 'default' | 'cars' | 'motorcycles';
 export default function Formulario() {
   // Estados do formulário
   const [tipo, setTipoVeiculo] = useState<VeiculoTipo>('default');
-  const [marca, setMarca] = useState('');
+  const [marca, setMarca] = useState<string>('');
   const [marcasFiltradas, setMarcasFiltradas] = useState<Marca[]>([]);
-  const [modelo, setModelo] = useState('');
+  const [modelo, setModelo] = useState<string>('');
   const [modelosFiltrados, setModelosFiltrados] = useState<Modelo[]>([]);
-  const [versao, setVersao] = useState('');
+  const [versao, setVersao] = useState<string>('');
   const [versoesFiltradas, setVersoesFiltradas] = useState<Versao[]>([]);
-  const [ano, setAno] = useState('');
-  const [combustivel, setCombustivel] = useState('default');
-  const [carregando, setCarregando] = useState(false);
+  const [ano, setAno] = useState<string>('');
+  const [combustivel, setCombustivel] = useState<string>('default');
+  const [carregando, setCarregando] = useState<boolean>(false);
   const [veiculo, setVeiculo] = useState<Veiculo | undefined>(undefined);
-  const [estado, setEstado] = useState('default');
+  const [estado, setEstado] = useState<string>('default');
 
   // Carrega dados iniciais
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function Formulario() {
     }
   }, [modelo, modelosFiltrados]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {   
     e.preventDefault();
     setCarregando(true);
 
@@ -102,7 +102,7 @@ export default function Formulario() {
           marcasFiltradas.find(m => m.nome === marca)?.codigo || '',
           versaoSelecionada.codigo.toString(),
           ano,
-          combustivel
+          combustivel          
         );
         setVeiculo(veiculo);
       }
@@ -110,6 +110,7 @@ export default function Formulario() {
       console.error("Erro ao pesquisar veículo:", error);
     } finally {
       setCarregando(false);
+      
     }
   };
 
@@ -192,6 +193,8 @@ export default function Formulario() {
             <option value="1">Gasolina</option>
             <option value="2">Álcool</option>
             <option value="3">Diesel</option>
+            <option value="4">Elétrico</option>
+            <option value="5">Flex</option>
           </select>
         </div>
         <div className={estilos.campo}>
@@ -220,13 +223,15 @@ export default function Formulario() {
       <div className={estilos.veiculoRenderizado}>
         {veiculo && (
           <div>
-            <Item codigo={veiculo.codigo} marca={veiculo.marca} modelo={veiculo.modelo} preco={veiculo.preco} tipo={veiculo.tipo} ano={veiculo.ano} combustivel={veiculo.combustivel} IPVA={
-              estado !== "default" ? veiculo.calcularIPVA({
-                carro: estadosAliquota[estado as keyof typeof estadosAliquota].carro,
-                moto: estadosAliquota[estado as keyof typeof estadosAliquota].moto
-              }) : 0
-            } />
-            <button type="button" disabled={!combustivel || carregando} className={carregando ? estilos.carregando : ''} onClick={() => RepositorioGeral.adicionarFavorito(veiculo)}>{carregando ? 'Adicionando...' : 'Adicionar aos Favoritos'}</button>
+            <Item codigo={veiculo.codigo} marca={veiculo.marca} modelo={veiculo.modelo} preco={veiculo.preco} tipo={veiculo.tipo} ano={veiculo.ano} combustivel={veiculo.combustivel}
+              IPVA={
+                estado !== "default" ? veiculo.calcularIPVA({
+                  carro: estadosAliquota[estado as keyof typeof estadosAliquota].carro,
+                  moto: estadosAliquota[estado as keyof typeof estadosAliquota].moto
+                }) : 0
+              } />
+            <button type="button" disabled={!combustivel || carregando} className={carregando ? estilos.carregando : ''} onClick={() => RepositorioGeral.adicionarFavorito(veiculo)}>{carregando ? 'Adicionando...' : 'Adicionar aos Favoritos'}
+            </button>
           </div>
         )}
       </div>

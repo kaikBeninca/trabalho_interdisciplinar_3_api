@@ -1,83 +1,77 @@
 # 🚗 Projeto FIPE React + TypeScript
 
-Este projeto tem como objetivo desenvolver uma aplicação web para **pesquisa, comparação e cálculo de IPVA de veículos** com base na API da **Tabela FIPE**.
+Este projeto é uma aplicação web para pesquisa de preços de veículos com base na **API da Tabela FIPE**, incluindo o **cálculo do IPVA** e funcionalidades de favoritos.
 
-A proposta surgiu como Trabalho Final Interdisciplinar das disciplinas:
-
-- **Arquitetura de Software**
-- **Desenvolvimento Front-End II**
-- **Programação Orientada a Objetos II**
-
----
-
-## 🎯 Objetivos da Aplicação
-
-A aplicação foi projetada para oferecer **três funcionalidades principais**:
-
-### 🔍 Pesquisar Veículos
-Filtrar veículos pela API da FIPE com base em **tipo, marca, modelo e ano**.
-
-### ⚖️ Comparar Preços
-Exibir **lado a lado os preços de dois veículos distintos** para auxiliar na comparação de mercado.
-
-### 🧮 Simular Financiamento e Calcular IPVA
-Calcular o valor do IPVA com base no **estado selecionado** e no **valor do veículo**, utilizando um **JSON com alíquotas estaduais**, bem como **simular um financiamento**.
+> 🔍 Desenvolvido como **Trabalho Final Interdisciplinar** das disciplinas:
+> - Arquitetura de Software  
+> - Desenvolvimento Front-End II  
+> - Programação Orientada a Objetos II  
 
 ---
 
-## 🛠️ Estrutura do Projeto
+## 📄 Páginas da Aplicação
 
-A arquitetura do projeto foi baseada em **Programação Orientada a Objetos**, utilizando:
+### 1. **Home**
+Página inicial com um resumo geral do projeto.
 
-- **Classes abstratas**
-- **Herança**
-- **Polimorfismo**
-- **Princípios SOLID/GRASP**
+### 2. **Pesquisar FIPE**
+Formulário para pesquisa de veículos com os seguintes critérios:
+- Tipo de veículo
+- Marca
+- Modelo
+- Versão
+- Ano
+- Combustível
+- Estado (para cálculo do IPVA)
 
----
+Após o preenchimento, um **card do veículo** é exibido com os dados:
+- Código FIPE  
+- Marca  
+- Modelo  
+- Preço (valor FIPE)  
+- Tipo de veículo  
+- Combustível  
+- Valor do IPVA (calculado com base no estado)
 
-## 📦 Classes principais
+✅ O card também inclui um **botão para adicionar aos favoritos**.
 
-- `Veiculo` (classe abstrata)
-- `Carro`, `Moto`, `Caminhao` (herdam de `Veiculo`)
-- `RepositorioVeiculo` (gerencia as instâncias)
-- `IPesquisavel` (interface para filtro de pesquisa)
-
----
-
-## 📉 Diagrama UML
-
-Abaixo está o **diagrama de classes** utilizado como base para a modelagem do sistema:
-
-
-<img width="1185" height="787" alt="Captura de tela 2025-07-30 153325" src="https://github.com/user-attachments/assets/e1d7f77b-ebdf-46a1-87f3-b0ba0f576e8c" />
-
----
-
-## ⚠️ Status do Projeto
-
-🚧 **Projeto em desenvolvimento**
-
-- Atualmente, o projeto está **incompleto** e com funcionalidades ainda em fase de construção.
-- Algumas classes estão sendo **testadas e refatoradas**.
-- A integração completa com o **React** ainda não foi finalizada.
+### 3. **Favoritos**
+Exibe todos os veículos adicionados aos favoritos, com:
+- Filtro por **marca**, **modelo** e **tipo de veículo**, basta digitar no input
+- Opção de **remover** o veículo dos favoritos
 
 ---
 
-## 🔮 Próximos Passos
+## 🎯 Objetivos
 
-- Finalizar os métodos de **busca e criação de instâncias via API**
-- **Integrar o backend TypeScript ao frontend React**
-- Adicionar **tratamento de erros** e mensagens de **feedback para o usuário**
-- Implementar **layout responsivo**
+- Permitir a pesquisa de veículos através de **requisições à API** FIPE
+- Demonstrar **herança, polimorfismo** e uso de **interfaces** via POO
+- Usar conceitos de **arquitetura** para planejamento e estruturação do trabalho, com utilização de **Diagrama de Classes**
+- **Reutilização** de **componentes** criados no React
+- Calcular o valor do **IPVA por estado**, utilizando um arquivo JSON com as alíquotas
+
+---
+
+## 🧠 Estrutura do Projeto
+
+- Arquitetura baseada em **Programação Orientada a Objetos (POO)**
+- Uso de **classes abstratas**, **herança**, **polimorfismo** e **interfaces**
+- Aplicação dos princípios **SOLID** e **GRASP**
+- Utilização do padrão de projeto **MVC**
 
 ---
 
-## 📚 Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
-- React
-- TypeScript
-- API FIPE: [https://fipe.online/docs/api/fipe](https://fipe.online/docs/api/fipe)
-- Programação Orientada a Objetos
+- ⚛️ [React](https://reactjs.org/)
+- 🟦 TypeScript
+- 💡 Programação Orientada a Objetos
+- 🧮 Consumo de API REST
 
 ---
+
+## 🔗 Links Úteis
+
+- 📊 **API FIPE Pública**: [https://parallelum.com.br/fipe/api/v1/carros/marcas](https://parallelum.com.br/fipe/api/v1/carros/marcas)
+- 💻 **Repositório GitHub**: [https://github.com/kaikBeninca/trabalho_interdisciplinar_3_api](https://github.com/kaikBeninca/trabalho_interdisciplinar_3_api)
+- 🌐 **Deploy Vercel**: ([https://trabalho-interdisciplinar-3-api.vercel.app/](https://trabalho-interdisciplinar-3-api.vercel.app/))
