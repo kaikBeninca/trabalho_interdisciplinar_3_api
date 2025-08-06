@@ -79,6 +79,7 @@ export abstract class Veiculo implements IPesquisavel {
         return vetor.filter(veiculo =>
             veiculo.marca.toLowerCase().includes(criterio.toLowerCase()) ||
             veiculo.modelo.toLowerCase().includes(criterio.toLowerCase()) ||
+            veiculo.combustivel.toLowerCase().includes(criterio.toLowerCase()) ||
             veiculo.tipo.toLowerCase().includes(criterio.toLowerCase()));
     }
 }
