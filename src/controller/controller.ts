@@ -36,13 +36,13 @@ export default async function fipeRequest(endpoint: string): Promise<any> { // R
 export async function construindoMarcas(): Promise<void> {
     // Defino os códigos específicos para cada tipo
     const marcasParaBuscar = [
-        {
-            tipo: 'cars',
-            codigos: ['31', '41', '43']
+        { 
+            tipo: 'cars', 
+            codigos: ['31', '41', '43'] 
         },
-        {
-            tipo: 'motorcycles',
-            codigos: ['77', '91', '192']
+        { 
+            tipo: 'motorcycles', 
+            codigos: ['77', '91', '192'] 
         }
     ];
 
@@ -137,7 +137,7 @@ export async function construindoModelos(): Promise<void> {
     }
 }
 
-export async function construindoVeiculos(tipoVeiculo: string, marca: string, modelo: string, ano: string, tipoCombustivel: string) {
+export async function construindoVeiculos(tipoVeiculo: string, marca: string, modelo: string, ano: string, tipoCombustivel: string): Promise<Veiculo | undefined> {
     try {
         const veiculo = await fipeRequest(`/${tipoVeiculo}/brands/${marca}/models/${modelo}/years/${ano}-${tipoCombustivel}`);
         let novoVeiculo: Veiculo; // Use o tipo base
