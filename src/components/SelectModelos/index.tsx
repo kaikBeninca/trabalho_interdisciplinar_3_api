@@ -2,11 +2,9 @@ import { Modelo } from "../../models/Modelo";
 
 interface SelectModelosProps {
   modelos: Modelo[];
-  value?: string;
-  onChange?: (value: string) => void;
 }
 
-export default function SelectModelos({ modelos}: SelectModelosProps) {
+export default function SelectModelos({ modelos }: SelectModelosProps) {
   // Ordena os modelos alfabeticamente
   const modelosOrdenados = [...modelos].sort((a, b) => 
     a.nome.localeCompare(b.nome)
