@@ -1,5 +1,4 @@
 import { IPesquisavel } from "../interfaces/Pesquisavel";
-import { RepositorioGeral } from "./RepositorioGeral";
 
 export abstract class Veiculo implements IPesquisavel {
     private _codigo: string;

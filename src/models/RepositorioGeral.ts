@@ -46,16 +46,4 @@ export class RepositorioGeral {
     public static adicionarFavorito(veiculo: Veiculo): void {
         this._favoritos.push(veiculo);
     }
-
-    public static removerFavorito(veiculo: Veiculo): void {
-        const indice = this.favoritos.findIndex((objVeiculo: Veiculo) => veiculo.codigo === objVeiculo.codigo);
-
-        if (indice !== -1) {
-            this.favoritos.splice(indice, 1);
-        }
-    }
-
-    static estaNosFavoritos(codigo: string): boolean {
-        return this.favoritos.some(v => v.codigo === codigo);
-    }
 }
